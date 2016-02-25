@@ -1,0 +1,30 @@
+<idea-plugin version="2">
+  <id>org.roana0229.android-xml-sorter</id>
+  <name>AndroidXmlSorter</name>
+  <version>1.0.0</version>
+  <vendor email="roana.enter@gmail.com" url="https://github.com/roana0229/android-xml-sorter">roana0229</vendor>
+
+  <description><![CDATA[
+      IntelliJ Plugin for Xml Sort By Name
+    ]]></description>
+
+  <change-notes><![CDATA[
+      first version
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <depends>com.intellij.modules.lang</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <action id="XmlSorterAction" class="XmlSorterAction" text="Sort Xml By Name" description="Sort Xml By Name">
+      <add-to-group group-id="RefactoringMenu" anchor="first"/>
+    </action>
+  </actions>
+</idea-plugin>
