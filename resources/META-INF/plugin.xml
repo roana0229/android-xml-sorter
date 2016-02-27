@@ -1,11 +1,11 @@
 <idea-plugin version="2">
   <id>org.roana0229.android-xml-sorter</id>
   <name>AndroidXmlSorter</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <vendor email="roana.enter@gmail.com" url="https://github.com/roana0229/android-xml-sorter">roana0229</vendor>
 
   <description><![CDATA[
-      Android Studio & IntelliJ Plugin for sort xml by name="xxx"'.<br/>
+      Android Studio & IntelliJ Plugin for sort xml by name="xxx".<br/>
       'Editor > PopupMenu(Right Click) > Refactor > Sort Xml By Name'<br/><br/>
 
       Options<br/>
@@ -16,6 +16,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
+      1.0.1: Fixed plugin description.<br/>
       1.0.0: First version released.
     ]]>
   </change-notes>
