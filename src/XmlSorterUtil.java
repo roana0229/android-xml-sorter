@@ -70,7 +70,6 @@ public class XmlSorterUtil {
         return insertedList;
     }
 
-    // TODO: 2番目移行のprefix対応
     public static ArrayList<Node> insertDiffPrefixSpace(@NotNull Document document, @NotNull ArrayList<Node> nodeList, int prefixPosition, boolean isSnakeCase) {
         ArrayList<Node> insertedList = new ArrayList<Node>();
         String beforePrefix = null;
@@ -85,7 +84,7 @@ public class XmlSorterUtil {
             String prefix;
             try {
                 if (isSnakeCase) {
-                    prefix = name.split("_")[prefixPosition];
+                    prefix = name.split("_")[prefixPosition - 1];
                 } else {
                     // TODO: CamelCase対応
                     prefix = null;
@@ -94,9 +93,11 @@ public class XmlSorterUtil {
                 prefix = null;
             }
 
-            if (!TextUtils.isEmpty(beforePrefix) && !TextUtils.isEmpty(prefix) && !prefix.equals(beforePrefix)) {
-                Element element = document.createElement("space");
-                insertedList.add(element);
+            if (nodeList.indexOf(node) > 0) {
+                if (TextUtils.isEmpty(beforePrefix) || TextUtils.isEmpty(prefix) || !prefix.equals(beforePrefix)) {
+                    Element element = document.createElement("space");
+                    insertedList.add(element);
+                }
             }
 
             beforePrefix = prefix;

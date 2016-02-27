@@ -39,8 +39,10 @@ public class XmlSorterAction extends AnAction {
         // get options
         boolean enableInsertSpaceDiffPrefix = dialog.enableInsertSpace();
         boolean isSnakeCase = true;
+        int prefixSpacePosition = 0;
         if (enableInsertSpaceDiffPrefix) {
             isSnakeCase = dialog.isSnakeCase();
+            prefixSpacePosition = dialog.getPrefixSpacePosition();
         }
         boolean enableInsertXmlEncoding = dialog.enableInsertXmlInfo();
         boolean enableDeleteComment = dialog.enableDeleteComment();
@@ -72,7 +74,7 @@ public class XmlSorterAction extends AnAction {
 
         // insert space
         if (enableInsertSpaceDiffPrefix) {
-            targetNodes = XmlSorterUtil.insertDiffPrefixSpace(document, targetNodes, 0, isSnakeCase);
+            targetNodes = XmlSorterUtil.insertDiffPrefixSpace(document, targetNodes, prefixSpacePosition, isSnakeCase);
         }
 
         // apply sort
