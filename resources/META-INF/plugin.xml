@@ -5,18 +5,25 @@
   <vendor email="roana.enter@gmail.com" url="https://github.com/roana0229/android-xml-sorter">roana0229</vendor>
 
   <description><![CDATA[
-      IntelliJ Plugin for Xml Sort By Name
+      Android Studio & IntelliJ Plugin for sort xml by name="xxx"'.<br/>
+      'Editor > PopupMenu(Right Click) > Refactor > Sort Xml By Name'<br/><br/>
+
+      Options<br/>
+      - Insert space between difference prefix<br/>
+      - Insert version and encoding<br/>
+      - Delete comment<br/>
+      - Code indent number
     ]]></description>
 
   <change-notes><![CDATA[
-      first version
+      1.0.0: First version released.
     ]]>
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
   <idea-version since-build="141.0"/>
 
-  <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.xml</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
