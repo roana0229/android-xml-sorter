@@ -3,9 +3,12 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.vfs.VirtualFile;
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -18,6 +21,13 @@ public class XmlSorterAction extends AnAction {
 
     private static final String ERROR_GROUP = "ErrorMessage";
     private static final String ERROR_TITLE = "Error";
+
+    @Override
+    public void update(AnActionEvent event) {
+        super.update(event);
+        final VirtualFile file = CommonDataKeys.VIRTUAL_FILE.getData(event.getDataContext());
+        event.getPresentation().setVisible(isXmlFile(file));
+    }
 
     @Override
     public void actionPerformed(AnActionEvent event) {
@@ -95,6 +105,10 @@ public class XmlSorterAction extends AnAction {
                 editor.getDocument().setText(finalPrintString);
             }
         }.execute();
+    }
+
+    private static boolean isXmlFile(@Nullable VirtualFile file) {
+        return file != null && file.getName().endsWith(".xml");
     }
 
     private class NodeComparator implements Comparator<Node> {
