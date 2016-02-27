@@ -2,11 +2,20 @@
 
 Android Studio & IntelliJ Plugin for sort xml by name="xxx".
 
+![demo](https://raw.githubusercontent.com/roana0229/android-xml-sorter/master/demo.gif)
+
+# Options
+
+* Insert space between difference prefix
+* Insert version and encoding
+* Delete comment
+* Code indent number
+
 # Installation
 
 ## Browse Repositories
 
-### Now is waiting for authentication at 2016/2/27.
+### Now is waiting for authentication at 2016/2/27. Look at 'Mannualy'.
 
 Search word `xml sort`.
 
@@ -24,16 +33,11 @@ Search word `xml sort`.
 
 Editor > PopupMenu(Right Click) > Refactor > Sort Xml By Name
 
-# Options
-
-* Insert space between difference prefix
-* Insert version and encoding
-* Delete comment
-* Code indent number
-
 # TODO
 
 Issues
+
+* [Corresponding to the "CamelCase"](https://github.com/roana0229/android-xml-sorter/issues/1)
 
 # License
 
