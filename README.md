@@ -15,8 +15,6 @@ Android Studio & IntelliJ Plugin for sort xml by name="xxx".
 
 ## Browse Repositories
 
-**Now is waiting for authentication at 2016/2/27. Look at 'Mannualy'.**
-
 Search word `xml sort`.
 
 * On Mac: `Preference > Plugins > Browse repositories`
