@@ -7,6 +7,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
@@ -31,7 +32,10 @@ public class XmlSorterAction extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent event) {
-        XmlSorterDialog dialog = new XmlSorterDialog(getEventProject(event));
+        final Project project = getEventProject(event);
+        final Editor editor = event.getData(PlatformDataKeys.EDITOR);
+
+        XmlSorterDialog dialog = new XmlSorterDialog(project);
         if (!dialog.showAndGet()) {
             return;
         }
@@ -49,7 +53,6 @@ public class XmlSorterAction extends AnAction {
         int codeIndent = dialog.getCodeIndent();
 
         // get content
-        final Editor editor = event.getData(PlatformDataKeys.EDITOR);
         final String content = editor.getDocument().getText();
         final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, ">\n*\\s+?<", "><");
 
@@ -101,7 +104,7 @@ public class XmlSorterAction extends AnAction {
 
         // write
         final String finalPrintString = printString;
-        new WriteCommandAction.Simple(getEventProject(event)) {
+        new WriteCommandAction.Simple(project) {
             @Override
             protected void run() throws Throwable {
                 editor.getDocument().setText(finalPrintString);
