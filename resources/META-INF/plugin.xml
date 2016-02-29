@@ -33,6 +33,7 @@
   <actions>
     <action id="XmlSorterAction" class="XmlSorterAction" text="Sort Xml By Name" description="Sort Xml By Name">
       <add-to-group group-id="RefactoringMenu" anchor="first"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="meta L"/>
     </action>
   </actions>
 </idea-plugin>
