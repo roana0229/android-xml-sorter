@@ -51,7 +51,7 @@ public class XmlSorterAction extends AnAction {
         // get content
         final Editor editor = event.getData(PlatformDataKeys.EDITOR);
         final String content = editor.getDocument().getText();
-        final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, "\\s*\\n\\s*", "");
+        final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, ">\n*\\s+?<", "><");
 
         // content convert document
         Document document;
