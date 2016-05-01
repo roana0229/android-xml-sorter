@@ -31,10 +31,6 @@ Search word `xml sort`.
 
 Editor > PopupMenu(Right Click) > Refactor > Sort Xml By Name
 
-# Issues
-
-* [Corresponding to the "CamelCase"](https://github.com/roana0229/android-xml-sorter/issues/1)
-
 # License
 
 ```
