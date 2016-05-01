@@ -32,17 +32,6 @@
           <text value=" Code indent"/>
         </properties>
       </component>
-      <component id="c0599" class="javax.swing.JComboBox" binding="mInputCaseBox">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="Snake Case"/>
-            <item value="Camel Case"/>
-          </model>
-        </properties>
-      </component>
       <component id="986c7" class="javax.swing.JComboBox" binding="mCodeIndentBox">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -54,14 +43,6 @@
             <item value="8"/>
             <item value="12"/>
           </model>
-        </properties>
-      </component>
-      <component id="5d5a3" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value=" ( Now is the only 'Snake Case' )"/>
         </properties>
       </component>
       <component id="898cc" class="javax.swing.JCheckBox" binding="mDeleteCommentCheckBox">
@@ -77,7 +58,7 @@
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Where separate prefix"/>
+          <text value="  Where separate prefix"/>
         </properties>
       </component>
       <component id="1915c" class="javax.swing.JComboBox" binding="mPrefixSpacePositionBox">
@@ -90,6 +71,17 @@
             <item value="2"/>
             <item value="3"/>
             <item value="4"/>
+          </model>
+        </properties>
+      </component>
+      <component id="c0599" class="javax.swing.JComboBox" binding="mInputCaseBox">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="Snake Case"/>
+            <item value="Camel Case"/>
           </model>
         </properties>
       </component>

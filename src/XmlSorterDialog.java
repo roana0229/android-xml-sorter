@@ -38,14 +38,10 @@ public class XmlSorterDialog extends DialogWrapper {
         // indent 4
         mCodeIndentBox.setSelectedIndex(1);
 
-        // TODO: CamelCase対応
-        mInputCaseBox.setEnabled(false);
-
         mInsertSpaceCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                // TODO: CamelCase対応
-//                mInputCaseBox.setEnabled(mInsertSpaceCheckBox.isSelected());
+                mInputCaseBox.setEnabled(mInsertSpaceCheckBox.isSelected());
                 mPrefixSpacePositionLabel.setEnabled(mInsertSpaceCheckBox.isSelected());
                 mPrefixSpacePositionBox.setEnabled(mInsertSpaceCheckBox.isSelected());
             }

@@ -86,8 +86,8 @@ public class XmlSorterUtil {
                 if (isSnakeCase) {
                     prefix = name.split("_")[prefixPosition - 1];
                 } else {
-                    // TODO: CamelCase対応
-                    prefix = null;
+                    Pattern p = Pattern.compile("[A-Z]");
+                    prefix = p.split(name)[prefixPosition];
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 prefix = null;
