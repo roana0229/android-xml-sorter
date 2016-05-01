@@ -20,7 +20,7 @@ Search word `xml sort`.
 * On Mac: `Preference > Plugins > Browse repositories`
 * On Other: `File > Settings... > IDE Settings > Plugins > Browse repositories`
 
-## Mannualy
+## Manually
 
 1. Download [AndroidXmlSorter.jar](https://github.com/roana0229/android-xml-sorter/raw/master/AndroidXmlSorter.jar).
 2. On Mac: `Preference > Plugins > Install plugin from disk...`<br/>On Other: `File > Settings... > IDE Settings > Plugins > Install plugin from disk...`
