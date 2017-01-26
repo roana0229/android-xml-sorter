@@ -48,7 +48,8 @@ public class XmlSorterUtil {
         ArrayList<Node> comments = null;
         for (int i = 0, length = nodeList.getLength(); i < length; i++) {
             final Node node = nodeList.item(i);
-            if (node.getNodeType() == Node.COMMENT_NODE) {
+            // Add comment and eat-comment tag to comments list
+            if (node.getNodeType() == Node.COMMENT_NODE || "eat-comment".equals(node.getNodeName())) {
                 if (comments == null) {
                     comments = new ArrayList<Node>();
                 }
