@@ -42,12 +42,21 @@ public class XmlSorterUtil {
         return out.toString();
     }
 
-    public static ArrayList<Node> getNodesAsList(@NotNull Document document) {
-        ArrayList<Node> list = new ArrayList<Node>();
+    public static ArrayList<CommentedNode> getNodesAsList(@NotNull Document document) {
+        ArrayList<CommentedNode> list = new ArrayList<CommentedNode>();
         final NodeList nodeList = document.getDocumentElement().getChildNodes();
+        ArrayList<Node> comments = null;
         for (int i = 0, length = nodeList.getLength(); i < length; i++) {
             final Node node = nodeList.item(i);
-            list.add(node);
+            if (node.getNodeType() == Node.COMMENT_NODE) {
+                if (comments == null) {
+                    comments = new ArrayList<Node>();
+                }
+                comments.add(node);
+            } else {
+                list.add(new CommentedNode(node, comments));
+                comments = null;
+            }
         }
         return list;
     }
@@ -61,26 +70,16 @@ public class XmlSorterUtil {
         }
     }
 
-    public static ArrayList<Node> deleteComment(@NotNull ArrayList<Node> nodeList) {
-        ArrayList<Node> insertedList = new ArrayList<Node>();
-        for (Node node : nodeList) {
-            if (node.getNodeType() == Node.COMMENT_NODE) continue;
-            insertedList.add(node);
-        }
-        return insertedList;
-    }
-
-    public static ArrayList<Node> insertDiffPrefixSpace(@NotNull Document document, @NotNull ArrayList<Node> nodeList, int prefixPosition, boolean isSnakeCase) {
-        ArrayList<Node> insertedList = new ArrayList<Node>();
+    public static ArrayList<CommentedNode> insertDiffPrefixSpace(@NotNull Document document,
+                                                                 @NotNull ArrayList<CommentedNode> nodeList,
+                                                                 int prefixPosition, boolean isSnakeCase) {
+        ArrayList<CommentedNode> insertedList = new ArrayList<CommentedNode>();
         String beforePrefix = null;
 
-        for (Node node : nodeList) {
-            if (node.getNodeType() == Node.COMMENT_NODE) {
-                insertedList.add(node);
-                continue;
-            }
+        for (CommentedNode commentedNode : nodeList) {
+            Node node = commentedNode.node;
 
-            final String name = ((Element)node).getAttribute("name");
+            final String name = ((Element) node).getAttribute("name");
             String prefix;
             try {
                 if (isSnakeCase) {
@@ -93,17 +92,27 @@ public class XmlSorterUtil {
                 prefix = null;
             }
 
-            if (nodeList.indexOf(node) > 0) {
+            if (nodeList.indexOf(commentedNode) > 0) {
                 if (TextUtils.isEmpty(beforePrefix) || TextUtils.isEmpty(prefix) || !prefix.equals(beforePrefix)) {
                     Element element = document.createElement("space");
-                    insertedList.add(element);
+                    insertedList.add(new CommentedNode(element, null));
                 }
             }
 
             beforePrefix = prefix;
-            insertedList.add(node);
+            insertedList.add(commentedNode);
         }
         return insertedList;
+    }
+
+    static class CommentedNode {
+        ArrayList<Node> comments;
+        Node node;
+
+        CommentedNode(@NotNull Node node, ArrayList<Node> comments) {
+            this.comments = comments;
+            this.node = node;
+        }
     }
 
 }

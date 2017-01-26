@@ -66,14 +66,9 @@ public class XmlSorterAction extends AnAction {
         }
 
         // sort
-        ArrayList<Node> targetNodes = XmlSorterUtil.getNodesAsList(document);
-        Collections.sort(targetNodes, new NodeComparator());
+        ArrayList<XmlSorterUtil.CommentedNode> targetNodes = XmlSorterUtil.getNodesAsList(document);
+        Collections.sort(targetNodes, new CommentedNodeComparator());
         XmlSorterUtil.removeChildNodes(document);
-
-        // delete comment
-        if (enableDeleteComment) {
-            targetNodes = XmlSorterUtil.deleteComment(targetNodes);
-        }
 
         // insert space
         if (enableInsertSpaceDiffPrefix) {
@@ -81,8 +76,18 @@ public class XmlSorterAction extends AnAction {
         }
 
         // apply sort
-        for (Node node : targetNodes) {
-            document.getDocumentElement().appendChild(node);
+        for (XmlSorterUtil.CommentedNode node : targetNodes) {
+
+            // don't write comment if `enableDeleteComment` is true
+            if (!enableDeleteComment) {
+                ArrayList<Node> comments = node.comments;
+                if (comments != null) {
+                    for (Node comment : comments) {
+                        document.getDocumentElement().appendChild(comment);
+                    }
+                }
+            }
+            document.getDocumentElement().appendChild(node.node);
         }
 
         // document convert content
@@ -116,9 +121,10 @@ public class XmlSorterAction extends AnAction {
         return file != null && file.getName().endsWith(".xml");
     }
 
-    private class NodeComparator implements Comparator<Node> {
+    private class CommentedNodeComparator implements Comparator<XmlSorterUtil.CommentedNode> {
         @Override
-        public int compare(Node node1, Node node2) {
+        public int compare(XmlSorterUtil.CommentedNode commentedNode1, XmlSorterUtil.CommentedNode commentedNode2) {
+            Node node1 = commentedNode1.node, node2 = commentedNode2.node;
             if (node1.getNodeType() == Node.COMMENT_NODE && node2.getNodeType() == Node.COMMENT_NODE) {
                 return 0;
             } else if (node1.getNodeType() == Node.COMMENT_NODE && node2.getNodeType() != Node.COMMENT_NODE) {
