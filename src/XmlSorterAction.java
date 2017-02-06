@@ -16,7 +16,6 @@ import org.w3c.dom.Node;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class XmlSorterAction extends AnAction {
 
@@ -66,14 +65,9 @@ public class XmlSorterAction extends AnAction {
         }
 
         // sort
-        ArrayList<Node> targetNodes = XmlSorterUtil.getNodesAsList(document);
-        Collections.sort(targetNodes, new NodeComparator());
+        ArrayList<CommentedNode> targetNodes = XmlSorterUtil.getNodesAsList(document);
+        Collections.sort(targetNodes, new CommentedNode.Comparator());
         XmlSorterUtil.removeChildNodes(document);
-
-        // delete comment
-        if (enableDeleteComment) {
-            targetNodes = XmlSorterUtil.deleteComment(targetNodes);
-        }
 
         // insert space
         if (enableInsertSpaceDiffPrefix) {
@@ -81,8 +75,18 @@ public class XmlSorterAction extends AnAction {
         }
 
         // apply sort
-        for (Node node : targetNodes) {
-            document.getDocumentElement().appendChild(node);
+        for (CommentedNode node : targetNodes) {
+
+            // don't write comment if `enableDeleteComment` is true
+            if (!enableDeleteComment) {
+                ArrayList<Node> comments = node.comments;
+                if (comments != null) {
+                    for (Node comment : comments) {
+                        document.getDocumentElement().appendChild(comment);
+                    }
+                }
+            }
+            document.getDocumentElement().appendChild(node.node);
         }
 
         // document convert content
@@ -116,20 +120,4 @@ public class XmlSorterAction extends AnAction {
         return file != null && file.getName().endsWith(".xml");
     }
 
-    private class NodeComparator implements Comparator<Node> {
-        @Override
-        public int compare(Node node1, Node node2) {
-            if (node1.getNodeType() == Node.COMMENT_NODE && node2.getNodeType() == Node.COMMENT_NODE) {
-                return 0;
-            } else if (node1.getNodeType() == Node.COMMENT_NODE && node2.getNodeType() != Node.COMMENT_NODE) {
-                return -1;
-            } else if (node1.getNodeType() != Node.COMMENT_NODE && node2.getNodeType() == Node.COMMENT_NODE) {
-                return 1;
-            } else {
-                final String node1Name = node1.getAttributes().getNamedItem("name").getTextContent();
-                final String node2Name = node2.getAttributes().getNamedItem("name").getTextContent();
-                return node1Name.compareTo(node2Name);
-            }
-        }
-    }
 }
