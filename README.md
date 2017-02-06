@@ -6,7 +6,7 @@ Android Studio & IntelliJ Plugin for sort xml by name="xxx".
 
 # Options
 
-* Insert space between difference prefix (Now is the only 'Snake Case')
+* Insert space between difference prefix ('Snake Case', 'Camel Case')
 * Insert version and encoding
 * Delete comment
 * Code indent number
@@ -34,7 +34,7 @@ Editor > PopupMenu(Right Click) > Refactor > Sort Xml By Name
 # License
 
 ```
-Copyright 2016 Kaoru Tsutsumishita
+Copyright 2016-2017 Kaoru Tsutsumishita
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
