@@ -6,7 +6,7 @@ Android Studio & IntelliJ Plugin for sort xml by name="xxx".
 
 # Options
 
-* Insert space between difference prefix (Now is the only 'Snake Case')
+* Insert space between difference prefix ('Snake Case', 'Camel Case')
 * Insert version and encoding
 * Delete comment
 * Code indent number
@@ -22,7 +22,7 @@ Search word `xml sort`.
 
 ## Manually
 
-1. Download [AndroidXmlSorter.jar](https://github.com/roana0229/android-xml-sorter/raw/master/AndroidXmlSorter.jar).
+1. Download [android-xml-sorter.jar](https://github.com/roana0229/android-xml-sorter/raw/master/android-xml-sorter.jar).
 2. On Mac: `Preference > Plugins > Install plugin from disk...`<br/>On Other: `File > Settings... > IDE Settings > Plugins > Install plugin from disk...`
 3. Select downloaded AndroidXmlSorter.jar file.
 4. Restart application.
@@ -34,7 +34,7 @@ Editor > PopupMenu(Right Click) > Refactor > Sort Xml By Name
 # License
 
 ```
-Copyright 2016 Kaoru Tsutsumishita
+Copyright 2016-2017 Kaoru Tsutsumishita
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

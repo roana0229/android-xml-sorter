@@ -16,7 +16,6 @@ import org.w3c.dom.Node;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 public class XmlSorterAction extends AnAction {
 
@@ -66,8 +65,8 @@ public class XmlSorterAction extends AnAction {
         }
 
         // sort
-        ArrayList<XmlSorterUtil.CommentedNode> targetNodes = XmlSorterUtil.getNodesAsList(document);
-        Collections.sort(targetNodes, new CommentedNodeComparator());
+        ArrayList<CommentedNode> targetNodes = XmlSorterUtil.getNodesAsList(document);
+        Collections.sort(targetNodes, new CommentedNode.Comparator());
         XmlSorterUtil.removeChildNodes(document);
 
         // insert space
@@ -76,7 +75,7 @@ public class XmlSorterAction extends AnAction {
         }
 
         // apply sort
-        for (XmlSorterUtil.CommentedNode node : targetNodes) {
+        for (CommentedNode node : targetNodes) {
 
             // don't write comment if `enableDeleteComment` is true
             if (!enableDeleteComment) {
@@ -122,21 +121,4 @@ public class XmlSorterAction extends AnAction {
         return file != null && file.getName().endsWith(".xml");
     }
 
-    private class CommentedNodeComparator implements Comparator<XmlSorterUtil.CommentedNode> {
-        @Override
-        public int compare(XmlSorterUtil.CommentedNode commentedNode1, XmlSorterUtil.CommentedNode commentedNode2) {
-            Node node1 = commentedNode1.node, node2 = commentedNode2.node;
-            if (node1.getNodeType() == Node.COMMENT_NODE && node2.getNodeType() == Node.COMMENT_NODE) {
-                return 0;
-            } else if (node1.getNodeType() == Node.COMMENT_NODE && node2.getNodeType() != Node.COMMENT_NODE) {
-                return -1;
-            } else if (node1.getNodeType() != Node.COMMENT_NODE && node2.getNodeType() == Node.COMMENT_NODE) {
-                return 1;
-            } else {
-                final String node1Name = node1.getAttributes().getNamedItem("name").getTextContent();
-                final String node2Name = node2.getAttributes().getNamedItem("name").getTextContent();
-                return node1Name.compareTo(node2Name);
-            }
-        }
-    }
 }

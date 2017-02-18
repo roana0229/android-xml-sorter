@@ -117,14 +117,4 @@ public class XmlSorterUtil {
         return insertedList;
     }
 
-    static class CommentedNode {
-        ArrayList<Node> comments;
-        Node node;
-
-        CommentedNode(@NotNull Node node, ArrayList<Node> comments) {
-            this.comments = comments;
-            this.node = node;
-        }
-    }
-
 }
