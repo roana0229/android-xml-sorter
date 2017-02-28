@@ -92,19 +92,20 @@ public class XmlSorterAction extends AnAction {
         // document convert content
         String printString;
         try {
-            printString = XmlSorterUtil.prettyStringFromDocument(document, codeIndent);
+            printString = XmlSorterUtil.prettyStringFromDocument(document, codeIndent, enableInsertXmlEncoding);
         } catch (IOException e) {
             Notifications.Bus.notify(new Notification(ERROR_GROUP, ERROR_TITLE, e.getLocalizedMessage(), NotificationType.ERROR));
             return;
         }
 
         // write option
-        if (!enableInsertXmlEncoding) {
-            printString = XmlSorterUtil.replaceAllByRegex(printString, "<\\?xml.*\\?>\n", "");
-        }
         if (enableInsertSpaceDiffPrefix) {
             printString = XmlSorterUtil.replaceAllByRegex(printString, "\n\\s+<space/>", "\n");
         }
+
+        // eliminate line breaks before/after xliff declaration
+        printString = XmlSorterUtil.replaceAllByRegex(printString, "\n\\s+<xliff:", "<xliff:");
+        printString = XmlSorterUtil.replaceAllByRegex(printString, "(</xliff:\\w+>)\n\\s+", "$1");
 
         // write
         final String finalPrintString = printString;
