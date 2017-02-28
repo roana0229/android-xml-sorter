@@ -1,5 +1,3 @@
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.apache.http.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
@@ -9,6 +7,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -32,14 +33,24 @@ public class XmlSorterUtil {
         return document;
     }
 
-    public static String prettyStringFromDocument(@NotNull Document document, int indent) throws IOException {
-        OutputFormat outputFormat = new OutputFormat(document);
-        outputFormat.setIndenting(true);
-        outputFormat.setIndent(indent);
-        Writer out = new StringWriter();
-        XMLSerializer serializer = new XMLSerializer(out, outputFormat);
-        serializer.serialize(document);
-        return out.toString();
+    public static String prettyStringFromDocument(@NotNull Document document, int indent, boolean insertEncoding)
+            throws IOException {
+        try {
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+            Transformer transformer = tFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, insertEncoding ? "no" : "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(indent));
+            DOMSource source = new DOMSource(document);
+            Writer out = new StringWriter();
+            StreamResult result = new StreamResult(out);
+            transformer.transform(source, result);
+            return out.toString();
+        } catch (TransformerConfigurationException e) {
+            throw new IOException(e);
+        } catch (TransformerException e) {
+            throw new IOException(e);
+        }
     }
 
     public static ArrayList<CommentedNode> getNodesAsList(@NotNull Document document) {
