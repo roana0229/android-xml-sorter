@@ -1,3 +1,5 @@
+package org.roana0229.android_xml_sorter;
+
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
