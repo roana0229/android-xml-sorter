@@ -1,3 +1,5 @@
+package org.roana0229.android_xml_sorter;
+
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
