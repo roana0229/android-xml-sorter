@@ -15,7 +15,11 @@ import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import java.io.*;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,7 +32,7 @@ public class XmlSorterAction extends AnAction {
     public void update(AnActionEvent event) {
         super.update(event);
         final VirtualFile file = CommonDataKeys.VIRTUAL_FILE.getData(event.getDataContext());
-        event.getPresentation().setVisible(isXmlFile(file));
+        event.getPresentation().setVisible(isResourceXmlFile(file));
     }
 
     @Override
@@ -119,8 +123,28 @@ public class XmlSorterAction extends AnAction {
         }.execute();
     }
 
-    private static boolean isXmlFile(@Nullable VirtualFile file) {
-        return file != null && file.getName().endsWith(".xml");
+    private static boolean isResourceXmlFile(@Nullable VirtualFile file) {
+        if (file == null || !file.getName().endsWith(".xml")) return false;
+        XMLStreamReader xml = null;
+        try {
+            xml = XMLInputFactory.newFactory().createXMLStreamReader(file.getInputStream());
+            while (xml.hasNext()) {
+                if (xml.next() == XMLStreamConstants.START_ELEMENT) {
+                    return "resources".equals(xml.getLocalName());
+                }
+            }
+        } catch (XMLStreamException | IOException e) {
+            return false;
+        } finally {
+            if (xml != null) {
+                try {
+                    xml.close();
+                } catch (XMLStreamException e) {
+                    // Ignore
+                }
+            }
+        }
+        return false;
     }
 
 }
