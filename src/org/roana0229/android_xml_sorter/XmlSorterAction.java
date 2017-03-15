@@ -32,7 +32,7 @@ public class XmlSorterAction extends AnAction {
     public void update(AnActionEvent event) {
         super.update(event);
         final VirtualFile file = CommonDataKeys.VIRTUAL_FILE.getData(event.getDataContext());
-        event.getPresentation().setVisible(isResourceXmlFile(file));
+        event.getPresentation().setEnabledAndVisible(isResourceXmlFile(file));
     }
 
     @Override
