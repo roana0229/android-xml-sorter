@@ -102,12 +102,12 @@ public class XmlSorterAction extends AnAction {
 
         // write option
         if (enableInsertSpaceDiffPrefix) {
-            printString = XmlSorterUtil.replaceAllByRegex(printString, "\n\\s+<space/>", "\n");
+            printString = XmlSorterUtil.replaceAllByRegex(printString, "([\n|\r\n])\\s+<space/>", "$1");
         }
 
         // eliminate line breaks before/after xliff declaration
-        printString = XmlSorterUtil.replaceAllByRegex(printString, "\n\\s+<xliff:", "<xliff:");
-        printString = XmlSorterUtil.replaceAllByRegex(printString, "(</xliff:\\w+>)\n\\s+", "$1");
+        printString = XmlSorterUtil.replaceAllByRegex(printString, "[\n|\r\n]\\s+<xliff:", "<xliff:");
+        printString = XmlSorterUtil.replaceAllByRegex(printString, "(</xliff:\\w+>)[\n|\r\n]\\s+", "$1");
 
         // write
         final String finalPrintString = printString;
