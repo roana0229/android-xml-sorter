@@ -1,6 +1,5 @@
 package org.roana0229.android_xml_sorter;
 
-import org.apache.http.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -85,8 +84,8 @@ public class XmlSorterUtil {
     }
 
     public static ArrayList<CommentedNode> insertDiffPrefixSpace(@NotNull Document document,
-                                                                 @NotNull ArrayList<CommentedNode> nodeList,
-                                                                 int prefixPosition, boolean isSnakeCase) {
+            @NotNull ArrayList<CommentedNode> nodeList,
+            int prefixPosition, boolean isSnakeCase) {
         ArrayList<CommentedNode> insertedList = new ArrayList<CommentedNode>();
         String beforePrefix = null;
 
@@ -107,7 +106,8 @@ public class XmlSorterUtil {
             }
 
             if (nodeList.indexOf(commentedNode) > 0) {
-                if (TextUtils.isEmpty(beforePrefix) || TextUtils.isEmpty(prefix) || !prefix.equals(beforePrefix)) {
+                if (beforePrefix == null || beforePrefix.isEmpty() || prefix == null || prefix.isEmpty()
+                        || !prefix.equals(beforePrefix)) {
                     Element element = document.createElement("space");
                     insertedList.add(new CommentedNode(element, null));
                 }
