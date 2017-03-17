@@ -127,7 +127,7 @@ public class XmlSorterAction extends AnAction {
         if (file == null || !file.getName().endsWith(".xml")) return false;
         XMLStreamReader xml = null;
         try {
-            xml = XMLInputFactory.newFactory().createXMLStreamReader(file.getInputStream());
+            xml = XMLInputFactory.newInstance().createXMLStreamReader(file.getInputStream());
             while (xml.hasNext()) {
                 if (xml.next() == XMLStreamConstants.START_ELEMENT) {
                     return "resources".equals(xml.getLocalName());
