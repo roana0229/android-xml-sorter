@@ -39,6 +39,7 @@ public class XmlSorterAction extends AnAction {
     public void actionPerformed(AnActionEvent event) {
         final Project project = getEventProject(event);
         final Editor editor = event.getData(PlatformDataKeys.EDITOR);
+        final String lineSeparator = System.getProperty("line.separator");
 
         XmlSorterDialog dialog = new XmlSorterDialog(project);
         if (!dialog.showAndGet()) {
@@ -59,7 +60,7 @@ public class XmlSorterAction extends AnAction {
 
         // get content
         final String content = editor.getDocument().getText();
-        final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, ">[\n|\r\n]*\\s+?<", "><");
+        final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, ">" + lineSeparator + "*\\s+?<", "><");
 
         // content convert document
         Document document;
@@ -106,15 +107,15 @@ public class XmlSorterAction extends AnAction {
 
         // write option
         if (enableInsertSpaceDiffPrefix) {
-            printString = XmlSorterUtil.replaceAllByRegex(printString, "([\n|\r\n])\\s+<space/>", "$1");
+            printString = XmlSorterUtil.replaceAllByRegex(printString, "(" + lineSeparator + ")\\s+<space/>", "$1");
         }
 
         // eliminate line breaks before/after xliff declaration
-        printString = XmlSorterUtil.replaceAllByRegex(printString, "[\n|\r\n]\\s+<xliff:", "<xliff:");
-        printString = XmlSorterUtil.replaceAllByRegex(printString, "(</xliff:\\w+>)[\n|\r\n]\\s+", "$1");
+        printString = XmlSorterUtil.replaceAllByRegex(printString,  lineSeparator + "\\s+<xliff:", "<xliff:");
+        printString = XmlSorterUtil.replaceAllByRegex(printString, "(</xliff:\\w+>)" + lineSeparator + "\\s+", "$1");
 
         // write
-        final String finalPrintString = printString;
+        final String finalPrintString = lineSeparator.equals("\n") ? printString : printString.replace(lineSeparator, "\n");
         new WriteCommandAction.Simple(project) {
             @Override
             protected void run() throws Throwable {
