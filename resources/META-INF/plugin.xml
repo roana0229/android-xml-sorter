@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>org.roana0229.android-xml-sorter</id>
   <name>AndroidXmlSorter</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <vendor email="roana.enter@gmail.com" url="https://github.com/roana0229/android-xml-sorter">roana0229</vendor>
 
   <description><![CDATA[
@@ -16,6 +16,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
+      1.0.7: Updated show only resource xml.<br/>
       1.0.6: Fixed bug on AndroidStudio 2.3<br/>
       1.0.5: Fixed line break before/after xliff tag.<br/>
       1.0.4: Supports sort with comments.<br/>
