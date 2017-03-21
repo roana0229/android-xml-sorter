@@ -99,6 +99,12 @@ public class XmlSorterAction extends AnAction {
         String printString;
         try {
             printString = XmlSorterUtil.prettyStringFromDocument(document, codeIndent, enableInsertXmlEncoding);
+            // IDEA uses '\n' for all their text editors internally, so we just use '\n' as our line separator
+            // See: http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/documents.html
+            String lineSeparator = System.getProperty("line.separator");
+            if (!"\n".equals(lineSeparator)) {
+                printString = printString.replace(lineSeparator, "\n");
+            }
         } catch (IOException e) {
             Notifications.Bus.notify(new Notification(ERROR_GROUP, ERROR_TITLE, e.getLocalizedMessage(), NotificationType.ERROR));
             return;
