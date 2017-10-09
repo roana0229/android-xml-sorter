@@ -21,12 +21,12 @@ public class XmlSorterDialog extends DialogWrapper
     private static final String TITLE          = "Xml Sort Option";
     private static final String OK_BUTTON_TEXT = "Sort";
 
-    private static final String PC_KEY_PREFIX_SPACE_POS     = "PC_KEY_PREFIX_SPACE_POS";
-    private static final String PC_KEY_SPACE_BETWEEN_PREFIX = "PC_KEY_SPACE_BETWEEN_PREFIX";
-    private static final String PC_KEY_INSERT_XML_INFO      = "PC_KEY_INSERT_XML_INFO";
-    private static final String PC_KEY_DELETE_COMMENT       = "PC_KEY_DELETE_COMMENT";
-    private static final String PC_KEY_INPUT_CASE           = "PC_KEY_INPUT_CASE";
-    private static final String PC_KEY_CODE_INDENT          = "PC_KEY_CODE_INDENT";
+    static final String PC_KEY_PREFIX_SPACE_POS     = "PC_KEY_PREFIX_SPACE_POS";
+    static final String PC_KEY_SPACE_BETWEEN_PREFIX = "PC_KEY_SPACE_BETWEEN_PREFIX";
+    static final String PC_KEY_INSERT_XML_INFO      = "PC_KEY_INSERT_XML_INFO";
+    static final String PC_KEY_DELETE_COMMENT       = "PC_KEY_DELETE_COMMENT";
+    static final String PC_KEY_INPUT_CASE           = "PC_KEY_INPUT_CASE";
+    static final String PC_KEY_CODE_INDENT          = "PC_KEY_CODE_INDENT";
 
     private JPanel    mMainPanel;
     private JCheckBox mInsertSpaceCheckBox;
@@ -92,7 +92,12 @@ public class XmlSorterDialog extends DialogWrapper
 
     public int getPrefixSpacePosition()
     {
-        return Integer.parseInt(mPrefixSpacePositionBox.getSelectedItem().toString());
+        return getPrefixSpacePositionValueAt(mPrefixSpacePositionBox.getSelectedIndex());
+    }
+
+    public int getPrefixSpacePositionValueAt(int index)
+    {
+        return Integer.parseInt(mPrefixSpacePositionBox.getItemAt(index).toString());
     }
 
     public boolean enableInsertXmlInfo()
@@ -107,7 +112,12 @@ public class XmlSorterDialog extends DialogWrapper
 
     public int getCodeIndent()
     {
-        return Integer.parseInt(mCodeIndentBox.getSelectedItem().toString());
+        return getCodeIndentValueAt(mCodeIndentBox.getSelectedIndex());
+    }
+
+    public int getCodeIndentValueAt(int index)
+    {
+        return Integer.parseInt(mCodeIndentBox.getItemAt(index).toString());
     }
 
     @Override
