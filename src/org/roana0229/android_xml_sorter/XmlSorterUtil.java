@@ -55,7 +55,7 @@ public class XmlSorterUtil {
     }
 
     public static ArrayList<CommentedNode> getNodesAsList(@NotNull Document document) {
-        ArrayList<CommentedNode> list = new ArrayList<CommentedNode>();
+        ArrayList<CommentedNode> list = new ArrayList<>();
         final NodeList nodeList = document.getDocumentElement().getChildNodes();
         ArrayList<Node> comments = null;
         for (int i = 0, length = nodeList.getLength(); i < length; i++) {
@@ -63,7 +63,7 @@ public class XmlSorterUtil {
             // Add comment and eat-comment tag to comments list
             if (node.getNodeType() == Node.COMMENT_NODE || "eat-comment".equals(node.getNodeName())) {
                 if (comments == null) {
-                    comments = new ArrayList<Node>();
+                    comments = new ArrayList<>();
                 }
                 comments.add(node);
             } else {
@@ -84,13 +84,13 @@ public class XmlSorterUtil {
     }
 
     public static ArrayList<CommentedNode> insertDiffPrefixSpace(@NotNull Document document,
-            @NotNull ArrayList<CommentedNode> nodeList,
-            int prefixPosition, boolean isSnakeCase) {
+                                                                 @NotNull ArrayList<CommentedNode> nodeList,
+                                                                 int prefixPosition, boolean isSnakeCase) {
         ArrayList<CommentedNode> insertedList = new ArrayList<CommentedNode>();
         String beforePrefix = null;
 
         for (CommentedNode commentedNode : nodeList) {
-            Node node = commentedNode.node;
+            Node node = commentedNode.getNode();
 
             final String name = ((Element) node).getAttribute("name");
             String prefix;
