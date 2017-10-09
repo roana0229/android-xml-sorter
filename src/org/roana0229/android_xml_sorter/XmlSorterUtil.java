@@ -84,8 +84,8 @@ public class XmlSorterUtil {
     }
 
     public static ArrayList<CommentedNode> insertDiffPrefixSpace(@NotNull Document document,
-            @NotNull ArrayList<CommentedNode> nodeList,
-            int prefixPosition, boolean isSnakeCase) {
+                                                                 @NotNull ArrayList<CommentedNode> nodeList,
+                                                                 int prefixPosition, boolean isSnakeCase) {
         ArrayList<CommentedNode> insertedList = new ArrayList<CommentedNode>();
         String beforePrefix = null;
 

@@ -15,30 +15,28 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class XmlSorterDialog extends DialogWrapper
-{
+public class XmlSorterDialog extends DialogWrapper {
 
-    private static final String TITLE          = "Xml Sort Option";
+    private static final String TITLE = "Xml Sort Option";
     private static final String OK_BUTTON_TEXT = "Sort";
 
-    private static final String PC_KEY_PREFIX_SPACE_POS     = "PC_KEY_PREFIX_SPACE_POS";
+    private static final String PC_KEY_PREFIX_SPACE_POS = "PC_KEY_PREFIX_SPACE_POS";
     private static final String PC_KEY_SPACE_BETWEEN_PREFIX = "PC_KEY_SPACE_BETWEEN_PREFIX";
-    private static final String PC_KEY_INSERT_XML_INFO      = "PC_KEY_INSERT_XML_INFO";
-    private static final String PC_KEY_DELETE_COMMENT       = "PC_KEY_DELETE_COMMENT";
-    private static final String PC_KEY_INPUT_CASE           = "PC_KEY_INPUT_CASE";
-    private static final String PC_KEY_CODE_INDENT          = "PC_KEY_CODE_INDENT";
+    private static final String PC_KEY_INSERT_XML_INFO = "PC_KEY_INSERT_XML_INFO";
+    private static final String PC_KEY_DELETE_COMMENT = "PC_KEY_DELETE_COMMENT";
+    private static final String PC_KEY_INPUT_CASE = "PC_KEY_INPUT_CASE";
+    private static final String PC_KEY_CODE_INDENT = "PC_KEY_CODE_INDENT";
 
-    private JPanel    mMainPanel;
+    private JPanel mMainPanel;
     private JCheckBox mInsertSpaceCheckBox;
     private JComboBox mInputCaseBox;
     private JComboBox mPrefixSpacePositionBox;
     private JCheckBox mInsertXmlInfoCheckBox;
     private JCheckBox mDeleteCommentCheckBox;
     private JComboBox mCodeIndentBox;
-    private JLabel    mPrefixSpacePositionLabel;
+    private JLabel mPrefixSpacePositionLabel;
 
-    protected XmlSorterDialog(@Nullable Project project)
-    {
+    protected XmlSorterDialog(@Nullable Project project) {
         super(project, true);
         setTitle(TITLE);
         setOKButtonText(OK_BUTTON_TEXT);
@@ -46,8 +44,7 @@ public class XmlSorterDialog extends DialogWrapper
         init();
     }
 
-    private void initComponent()
-    {
+    private void initComponent() {
         PropertiesComponent pc = PropertiesComponent.getInstance();
         mInsertSpaceCheckBox.setSelected(pc.getBoolean(PC_KEY_SPACE_BETWEEN_PREFIX, true));
         // Snake Case
@@ -58,11 +55,9 @@ public class XmlSorterDialog extends DialogWrapper
         // indent 4
         mCodeIndentBox.setSelectedIndex(pc.getInt(PC_KEY_CODE_INDENT, 1));
 
-        ActionListener actionListener = new ActionListener()
-        {
+        ActionListener actionListener = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 mInputCaseBox.setEnabled(mInsertSpaceCheckBox.isSelected());
                 mPrefixSpacePositionLabel.setEnabled(mInsertSpaceCheckBox.isSelected());
                 mPrefixSpacePositionBox.setEnabled(mInsertSpaceCheckBox.isSelected());
@@ -75,50 +70,41 @@ public class XmlSorterDialog extends DialogWrapper
 
     @Nullable
     @Override
-    protected JComponent createCenterPanel()
-    {
+    protected JComponent createCenterPanel() {
         return mMainPanel;
     }
 
-    public boolean enableInsertSpace()
-    {
+    public boolean enableInsertSpace() {
         return mInsertSpaceCheckBox.isSelected();
     }
 
-    public boolean isSnakeCase()
-    {
+    public boolean isSnakeCase() {
         return mInputCaseBox.getSelectedIndex() == 0;
     }
 
-    public int getPrefixSpacePosition()
-    {
+    public int getPrefixSpacePosition() {
         return Integer.parseInt(mPrefixSpacePositionBox.getSelectedItem().toString());
     }
 
-    public boolean enableInsertXmlInfo()
-    {
+    public boolean enableInsertXmlInfo() {
         return mInsertXmlInfoCheckBox.isSelected();
     }
 
-    public boolean enableDeleteComment()
-    {
+    public boolean enableDeleteComment() {
         return mDeleteCommentCheckBox.isSelected();
     }
 
-    public int getCodeIndent()
-    {
+    public int getCodeIndent() {
         return Integer.parseInt(mCodeIndentBox.getSelectedItem().toString());
     }
 
     @Override
-    protected void doOKAction()
-    {
+    protected void doOKAction() {
         save();
         super.doOKAction();
     }
 
-    public void save()
-    {
+    public void save() {
         PropertiesComponent pc = PropertiesComponent.getInstance();
         pc.setValue(PC_KEY_SPACE_BETWEEN_PREFIX, mInsertSpaceCheckBox.isSelected(), true);
         pc.setValue(PC_KEY_INPUT_CASE, mInputCaseBox.getSelectedIndex(), 0);
