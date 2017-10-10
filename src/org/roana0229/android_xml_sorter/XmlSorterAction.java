@@ -38,7 +38,7 @@ public class XmlSorterAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent event) {
         final Project project = getEventProject(event);
-
+        final Editor editor = event.getData(PlatformDataKeys.EDITOR);
         XmlSorterDialog dialog = new XmlSorterDialog(project);
         if (!dialog.showAndGet()) {
             return;
@@ -55,7 +55,8 @@ public class XmlSorterAction extends AnAction {
         boolean enableInsertXmlEncoding = dialog.enableInsertXmlInfo();
         boolean enableDeleteComment = dialog.enableDeleteComment();
         int codeIndent = dialog.getCodeIndent();
-        execute(event,
+        execute(project,
+                editor,
                 isSnakeCase,
                 prefixSpacePosition,
                 enableInsertSpaceDiffPrefix,
@@ -64,7 +65,8 @@ public class XmlSorterAction extends AnAction {
                 codeIndent);
     }
 
-    protected void execute(AnActionEvent event,
+    protected void execute(final Project project,
+                           final Editor editor,
                            boolean isSnakeCase,
                            int prefixSpacePosition,
                            boolean enableInsertSpaceDiffPrefix,
@@ -72,8 +74,6 @@ public class XmlSorterAction extends AnAction {
                            boolean enableDeleteComment,
                            int codeIndent) {
         // get content
-        final Project project = getEventProject(event);
-        final Editor editor = event.getData(PlatformDataKeys.EDITOR);
         final String content = editor.getDocument().getText();
         final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, ">\n*\\s+?<", "><");
 
