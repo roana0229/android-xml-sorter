@@ -6,12 +6,20 @@ import org.w3c.dom.Node;
 import java.util.ArrayList;
 
 class CommentedNode {
-    ArrayList<Node> comments;
-    Node node;
+    private ArrayList<Node> comments;
+    private Node node;
 
     CommentedNode(@NotNull Node node, ArrayList<Node> comments) {
         this.comments = comments;
         this.node = node;
+    }
+
+    public ArrayList<Node> getComments() {
+        return comments;
+    }
+
+    public Node getNode() {
+        return node;
     }
 
     static class Comparator implements java.util.Comparator<CommentedNode> {

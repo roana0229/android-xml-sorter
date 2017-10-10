@@ -101,14 +101,14 @@ public class XmlSorterAction extends AnAction {
 
             // don't write comment if `enableDeleteComment` is true
             if (!enableDeleteComment) {
-                ArrayList<Node> comments = node.comments;
+                ArrayList<Node> comments = node.getComments();
                 if (comments != null) {
                     for (Node comment : comments) {
                         document.getDocumentElement().appendChild(comment);
                     }
                 }
             }
-            document.getDocumentElement().appendChild(node.node);
+            document.getDocumentElement().appendChild(node.getNode());
         }
 
         // document convert content
