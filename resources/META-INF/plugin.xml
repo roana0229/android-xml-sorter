@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>org.roana0229.android-xml-sorter</id>
   <name>AndroidXmlSorter</name>
-  <version>1.0.9</version>
+  <version>1.1.0</version>
   <vendor email="roana.enter@gmail.com" url="https://github.com/roana0229/android-xml-sorter">roana0229</vendor>
 
   <description><![CDATA[
@@ -16,6 +16,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
+      1.1.0: Updated Add instant sort shortcut.<br/>
       1.0.9: Updated Remember current settings.<br/>
       1.0.8: Fixed bug on Windows.<br/>
       1.0.7: Updated show only resource xml.<br/>
