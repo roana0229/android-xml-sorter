@@ -55,6 +55,7 @@ public class XmlSorterAction extends AnAction {
         boolean enableInsertXmlEncoding = dialog.enableInsertXmlInfo();
         boolean enableDeleteComment = dialog.enableDeleteComment();
         int codeIndent = dialog.getCodeIndent();
+        boolean separateNonTranslatable = dialog.separateNonTranslatableStrings();
         execute(project,
                 editor,
                 isSnakeCase,
@@ -62,7 +63,8 @@ public class XmlSorterAction extends AnAction {
                 enableInsertSpaceDiffPrefix,
                 enableInsertXmlEncoding,
                 enableDeleteComment,
-                codeIndent);
+                codeIndent,
+                separateNonTranslatable);
     }
 
     protected void execute(final Project project,
@@ -72,7 +74,8 @@ public class XmlSorterAction extends AnAction {
                            boolean enableInsertSpaceDiffPrefix,
                            boolean enableInsertXmlEncoding,
                            boolean enableDeleteComment,
-                           int codeIndent) {
+                           int codeIndent,
+                           boolean separateNonTranslatable) {
         // get content
         final String content = editor.getDocument().getText();
         final String simpleContent = XmlSorterUtil.replaceAllByRegex(content, ">\n*\\s+?<", "><");
@@ -88,7 +91,7 @@ public class XmlSorterAction extends AnAction {
 
         // sort
         ArrayList<CommentedNode> targetNodes = XmlSorterUtil.getNodesAsList(document);
-        Collections.sort(targetNodes, new CommentedNode.Comparator());
+        Collections.sort(targetNodes, new CommentedNode.Comparator(separateNonTranslatable));
         XmlSorterUtil.removeChildNodes(document);
 
         // insert space

@@ -25,7 +25,8 @@ public class XmlInstantSorterAction extends XmlSorterAction {
                 pc.getBoolean(PC_KEY_SPACE_BETWEEN_PREFIX, true),
                 pc.getBoolean(PC_KEY_INSERT_XML_INFO, true),
                 pc.getBoolean(PC_KEY_DELETE_COMMENT, false),
-                dialog.getCodeIndentValueAt(pc.getInt(PC_KEY_CODE_INDENT, 1)));
+                dialog.getCodeIndentValueAt(pc.getInt(PC_KEY_CODE_INDENT, 1)),
+                pc.getBoolean(PC_KEY_SEPARATE_NON_TRANSLATABLE, false));
     }
 
 }
