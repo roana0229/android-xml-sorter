@@ -20,6 +20,7 @@ public class XmlSorterDialog extends DialogWrapper {
     static final String PC_KEY_DELETE_COMMENT = "PC_KEY_DELETE_COMMENT";
     static final String PC_KEY_INPUT_CASE = "PC_KEY_INPUT_CASE";
     static final String PC_KEY_CODE_INDENT = "PC_KEY_CODE_INDENT";
+    static final String PC_KEY_SEPARATE_NON_TRANSLATABLE = "PC_KEY_SEPARATE_NON_TRANSLATABLE";
 
     private JPanel mMainPanel;
     private JCheckBox mInsertSpaceCheckBox;
@@ -29,6 +30,7 @@ public class XmlSorterDialog extends DialogWrapper {
     private JCheckBox mDeleteCommentCheckBox;
     private JComboBox mCodeIndentBox;
     private JLabel mPrefixSpacePositionLabel;
+    private JCheckBox mSeparateNonTranslatableCheckBox;
 
     protected XmlSorterDialog(@Nullable Project project) {
         super(project, true);
@@ -41,13 +43,12 @@ public class XmlSorterDialog extends DialogWrapper {
     private void initComponent() {
         PropertiesComponent pc = PropertiesComponent.getInstance();
         mInsertSpaceCheckBox.setSelected(pc.getBoolean(PC_KEY_SPACE_BETWEEN_PREFIX, true));
-        // Snake Case
         mInputCaseBox.setSelectedIndex(pc.getInt(PC_KEY_INPUT_CASE, 0));
         mPrefixSpacePositionBox.setSelectedIndex(pc.getInt(PC_KEY_PREFIX_SPACE_POS, 0));
         mInsertXmlInfoCheckBox.setSelected(pc.getBoolean(PC_KEY_INSERT_XML_INFO, true));
         mDeleteCommentCheckBox.setSelected(pc.getBoolean(PC_KEY_DELETE_COMMENT, false));
-        // indent 4
         mCodeIndentBox.setSelectedIndex(pc.getInt(PC_KEY_CODE_INDENT, 1));
+        mSeparateNonTranslatableCheckBox.setSelected(pc.getBoolean(PC_KEY_SEPARATE_NON_TRANSLATABLE, false));
 
         ActionListener actionListener = new ActionListener() {
             @Override
@@ -100,6 +101,10 @@ public class XmlSorterDialog extends DialogWrapper {
         return Integer.parseInt(mCodeIndentBox.getItemAt(index).toString());
     }
 
+    public boolean separateNonTranslatableStrings() {
+        return mSeparateNonTranslatableCheckBox.isSelected();
+    }
+
     @Override
     protected void doOKAction() {
         save();
@@ -114,6 +119,7 @@ public class XmlSorterDialog extends DialogWrapper {
         pc.setValue(PC_KEY_INSERT_XML_INFO, mInsertXmlInfoCheckBox.isSelected(), true);
         pc.setValue(PC_KEY_DELETE_COMMENT, mDeleteCommentCheckBox.isSelected(), false);
         pc.setValue(PC_KEY_CODE_INDENT, mCodeIndentBox.getSelectedIndex(), 1);
+        pc.setValue(PC_KEY_SEPARATE_NON_TRANSLATABLE, mSeparateNonTranslatableCheckBox.isSelected(), false);
     }
 
 }

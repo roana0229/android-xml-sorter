@@ -10,6 +10,7 @@ Android Studio & IntelliJ Plugin for sort xml by name="xxx".
 * Insert version and encoding
 * Delete comment
 * Code indent number
+* Separate non-translatable strings
 
 # Installation
 
