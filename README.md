@@ -1,5 +1,8 @@
 # AndroidXmlSorter
 
+***No further development, Issue, PullRequest or maintenance will be performed.***  
+***Please use within the scope of the license.***
+
 Android Studio & IntelliJ Plugin for sort xml by name="xxx".
 
 ![demo](https://raw.githubusercontent.com/roana0229/android-xml-sorter/master/demo.gif)
